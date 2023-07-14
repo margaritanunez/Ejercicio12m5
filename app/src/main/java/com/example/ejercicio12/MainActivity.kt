@@ -33,15 +33,26 @@ fun main (){
             println("Caracteres no válidos. Ingresar números")
             age = readln().toInt()
         }
+        println("Ingresar correo electrónico: ")
         var email = readln()
+        while (!validarCorreo(email)){
+            println("Correo no válido. Intente nuevamente")
+            email = readln()
+        }
+        println("Ingresar sistema de salud: Fonasa o Isapre")
         var sistemaSalud = readln()
+        while ((!validarSistemaSalud(sistemaSalud))){
+            println("Sistema de salud no existe. Ingrese nuevamente")
+            sistemaSalud= readln()
+        }
         var usuario = Usuario(name, lastName, age, email, sistemaSalud)
         usuarios.add(usuario)
     }
-    for (u in usuarios){
-        println(u)
+    for (u in usuarios) {
+        println ("$u")
     }
 }
+
 fun validarNombre(name: String): Boolean{
     return name.length in 1 .. 20
 }
@@ -49,11 +60,18 @@ fun validarApellido(lastName: String): Boolean{
     return lastName.length in 1 .. 20
 }
 fun validarEdad (age: Int): Boolean {
-    return age.none() in 'A'..'Z' && in 'a'..'z'
+    return age in 0 .. 150
 }
-fun validarCorreo(name: String): Boolean{
-    return name.length in 1 .. 20
+fun validarCorreo(email: String): Boolean {
+    return email.length in 10..200
+}
+fun validarSistemaSalud(sistemaSalud: String): Boolean{
+    return sistemaSalud== "Fonasa" || sistemaSalud=="Isapre" || sistemaSalud== "fonasa" || sistemaSalud== "isapre" || sistemaSalud== "FONASA" || sistemaSalud== "ISAPRE"
+}
 
-data class Usuario(var name:String, var lastName: String, var age: Int, var email: String, var sistemaSalud: String){
+
+class Usuario(name: String, lastName: String, age: Int, email: String, sistemaSalud: String) {
 
 }
+
+
