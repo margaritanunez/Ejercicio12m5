@@ -48,7 +48,9 @@ fun main (){
         var usuario = Usuario(name, lastName, age, email, sistemaSalud)
         usuarios.add(usuario)
     }
-    for (u in usuarios) {
+    for (u in usuarios.sortedBy{
+        usuario-> usuario.age
+    }) {
         println ("$u")
     }
 }
@@ -63,14 +65,14 @@ fun validarEdad (age: Int): Boolean {
     return age in 0 .. 150
 }
 fun validarCorreo(email: String): Boolean {
-    return email.length in 10..200
+    return email.length in 10..200 && email.contains('@')
 }
 fun validarSistemaSalud(sistemaSalud: String): Boolean{
     return sistemaSalud== "Fonasa" || sistemaSalud=="Isapre" || sistemaSalud== "fonasa" || sistemaSalud== "isapre" || sistemaSalud== "FONASA" || sistemaSalud== "ISAPRE"
 }
 
 
-class Usuario(name: String, lastName: String, age: Int, email: String, sistemaSalud: String) {
+data class Usuario(val name: String, val lastName: String, val age: Int, val email: String, val sistemaSalud: String) {
 
 }
 
